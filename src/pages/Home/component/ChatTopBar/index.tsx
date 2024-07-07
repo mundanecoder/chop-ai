@@ -4,7 +4,7 @@ const ChatTopBar = () => {
       <div className="flex items-center text-md">
         <p className="text-white/80 lg:text-lg font-semibold flex items-baseline  ">
           Chop
-          <span className="hidden lg:block text-md sm:text-md font-semibold ">
+          <span className="lg:block text-md sm:text-md font-semibold ">
             Tax
           </span>
         </p>
