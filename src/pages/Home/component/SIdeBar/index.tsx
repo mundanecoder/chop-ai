@@ -51,6 +51,36 @@ const SideBar = ({ chat }: IMessageArray) => {
               </div>
             ) : null
           )}
+
+          <div>
+            <div className="h-fit bottom-20 absolute flex justify-start px-4 py-4 gap-4 items-center w-[21.5%] rounded-xl bg-chop3gray">
+              {/* <img
+                src={chopgpt}
+                alt="avatar"
+                className="w-10 h-10 rounded-full"
+              /> */}
+              <div className="flex flex-col">
+                <span className="text-white/70 text-xs text-wrap">
+                  {" "}
+                  Hi, you are in beta verion of chop ai , many features are in
+                  development mode and will be available soon, we appreciate
+                  your feedback help@chop.com
+                </span>
+                <span className="text-white/70 text-xs text-wrap my-1">
+                  for details visit :
+                  <a
+                    href="https://www.chopchopfinance.com/"
+                    className="text-white/80 underline text-sm p-2"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {" "}
+                    chopchopfinance
+                  </a>
+                </span>{" "}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

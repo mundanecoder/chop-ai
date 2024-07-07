@@ -20,7 +20,7 @@ const DrawerComponent: React.FC<IDrawerProps> = ({
   return (
     <div className="absolute block lg:hidden top-0 left-0 h-full w-full text-white z-50">
       {open ? null : (
-        <div className="block text-white bg-chopbgblack h-[93.5vh] mt-3 w-[80vw] z-50">
+        <div className="block text-white bg-chopbgblack h-[93.5vh] mt-3 w-[80vw] z-50 relative">
           <div className="w-[97%] border-b-2 border-chop3gray p-1">
             <CircleX size={24} onClick={handleDrawer} />
           </div>
@@ -70,6 +70,31 @@ const DrawerComponent: React.FC<IDrawerProps> = ({
                       </div>
                     ) : null
                   )}
+
+                  <div>
+                    <div className="h-fit bottom-10 absolute flex justify-start px-4 py-4 gap-4 items-center w-[82.5%] rounded-xl bg-chop3gray">
+                      <div className="flex flex-col">
+                        <span className="text-white/70 text-xs text-wrap">
+                          {" "}
+                          Hi, you are in beta verion of chop ai , many features
+                          are in development mode and will be available soon, we
+                          appreciate your feedback help@chop.com
+                        </span>
+                        <span className="text-white/70 text-xs text-wrap my-1">
+                          for details visit :
+                          <a
+                            href="https://www.chopchopfinance.com/"
+                            className="text-white/80 underline text-sm p-2"
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            {" "}
+                            chopchopfinance
+                          </a>
+                        </span>{" "}
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

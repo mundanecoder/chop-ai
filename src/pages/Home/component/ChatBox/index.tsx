@@ -101,19 +101,36 @@ const ChatBox: React.FC<IMessageArray> = ({
 
   const shouldDisplayOptimisticResponse = () => {
     if (!currentChatSession) return false;
-    const messages = currentChatSession.chat;
-    if (messages.length < 1) return false;
-    const lastMessage = messages[messages.length - 1];
-    const secondLastMessage =
-      messages.length > 1 ? messages[messages.length - 2] : null;
 
-    return (
-      lastMessage.type === "text" &&
-      lastMessage.name === "user" &&
-      (!secondLastMessage ||
-        secondLastMessage.type !== "text" ||
-        secondLastMessage.name !== "chopai")
-    );
+    const messages = currentChatSession.chat;
+
+    // Find the last message index sent by the user
+    let lastUserMessageIndex = -1;
+    for (let i = messages.length - 1; i >= 0; i--) {
+      if (messages[i].type === "text" && messages[i].name === "user") {
+        lastUserMessageIndex = i;
+        break;
+      }
+    }
+
+    // If no user message found, return false
+    if (lastUserMessageIndex === -1) return false;
+
+    // Check if the last user message is not immediately followed by a chopai message
+    if (
+      lastUserMessageIndex < messages.length - 1 &&
+      messages[lastUserMessageIndex + 1].type !== "text" &&
+      messages[lastUserMessageIndex + 1].name !== "chopai"
+    ) {
+      return true; // Display optimistic response
+    }
+
+    // Also display optimistic response if the last user message is the last in the chat
+    if (lastUserMessageIndex === messages.length - 1) {
+      return true;
+    }
+
+    return false;
   };
 
   const handleScrollToBottom = () => {
@@ -124,7 +141,12 @@ const ChatBox: React.FC<IMessageArray> = ({
   };
 
   return (
-    <div className="h-[76%] relative">
+    <div
+      className="h-[76%] relative"
+      style={{
+        scrollbarWidth: "none",
+      }}
+    >
       <div
         className="h-full overflow-hidden overflow-y-scroll"
         style={{ scrollbarWidth: "none" }}
@@ -137,7 +159,7 @@ const ChatBox: React.FC<IMessageArray> = ({
                 if (message.type === "text" && message.name === "chopai") {
                   return (
                     <div key={index} className="flex justify-start mb-2">
-                      <div className="bg-chopbgblack p-4 rounded-xl text-white/90 max-w-[90%] flex flex-col w-[50vw] gap-2 items-start text-sm">
+                      <div className="bg-chopbgblack p-4 rounded-xl text-white/90 max-w-[90%] flex flex-col w-[70vw] lg:w-[50vw] gap-2 items-start text-sm">
                         <div className="bg-chopbgblack rounded-xl gap-2 w-full flex p-2">
                           <img
                             src={logo}
@@ -174,7 +196,7 @@ const ChatBox: React.FC<IMessageArray> = ({
                 } else if (message.type === "text" && message.name === "user") {
                   return (
                     <div key={index} className="flex justify-end mb-2">
-                      <div className="bg-chopbgblack p-4 rounded-xl text-white/90 max-w-[90%] flex flex-col w-[50vw] gap-2 items-start text-sm">
+                      <div className="bg-chopbgblack p-4 rounded-xl text-white/90 max-w-[90%] flex flex-col w-[70vw] lg:w-[50vw] gap-2 items-start text-sm">
                         <div className="bg-chopbgblack rounded-xl gap-4 w-full flex p-2">
                           <img
                             src={chopgpt}
@@ -207,10 +229,11 @@ const ChatBox: React.FC<IMessageArray> = ({
                     />
                     Chop
                   </div>
-                  <div className="max-w-[80%] overflow-auto pl-12">
-                    <div className="w-[30vw] p-2">
-                      <Skeleton className="h-10 bg-chop3gray rounded-xl animate-pulse" />
-                      <Skeleton className="h-10 bg-chop3gray rounded-xl animate-pulse mt-1" />
+                  <div className="max-w-[80%] overflow-auto pl-2">
+                    <div className="w-[40vw] lg:w-[30vw] p-2">
+                      <Skeleton className=" h-2 lg:h-4 bg-chop3gray rounded-xl animate-pulse" />
+                      <Skeleton className="  h-2 lg:h-4 bg-chop3gray rounded-xl animate-pulse mt-1" />
+                      <Skeleton className=" h-2 lg:h-4 bg-chop3gray rounded-xl animate-pulse mt-1" />
                     </div>
                   </div>
                 </div>
