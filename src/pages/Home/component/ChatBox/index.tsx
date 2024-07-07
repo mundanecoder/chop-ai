@@ -4,6 +4,7 @@ import logo from "/Logo.svg";
 import chopgpt from "/chatimg1.svg";
 import { chatMessage, IMessageObject } from "../../App";
 import { Skeleton } from "../../../../../@/components/ui/skeleton";
+import { User } from "lucide-react";
 
 interface IMessageArray {
   chat: chatMessage[];
@@ -11,6 +12,25 @@ interface IMessageArray {
   isTyping: boolean;
   handleIsTying: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
+export const dummyQuestions = [
+  {
+    id: "1",
+    question: "How to calculate HRA?",
+  },
+  {
+    id: "2",
+    question: "What is the standard deduction for salaried employees?",
+  },
+  {
+    id: "3",
+    question: "What are the tax benefits on home loans?",
+  },
+  {
+    id: "4",
+    question: "How to calculate taxable salary?",
+  },
+];
 
 const ChatBox: React.FC<IMessageArray> = ({
   chat,
@@ -148,7 +168,7 @@ const ChatBox: React.FC<IMessageArray> = ({
       }}
     >
       <div
-        className="h-full overflow-hidden overflow-y-scroll"
+        className="h-[64vh] overflow-hidden overflow-y-scroll"
         style={{ scrollbarWidth: "none" }}
         ref={messageContainerRef}
       >
@@ -158,18 +178,17 @@ const ChatBox: React.FC<IMessageArray> = ({
               (message: IMessageObject, index: number) => {
                 if (message.type === "text" && message.name === "chopai") {
                   return (
-                    <div key={index} className="flex justify-start mb-2">
-                      <div className="bg-chopbgblack p-4 rounded-xl text-white/90 max-w-[90%] flex flex-col w-[70vw] lg:w-[50vw] gap-2 items-start text-sm">
-                        <div className="bg-chopbgblack rounded-xl gap-2 w-full flex p-2">
+                    <div key={index} className="flex justify-center mb-3">
+                      <div className="bg-chopbgblack p-4 rounded-xl text-white/90 max-w-[90%]  flex w-[90vw] lg:w-[60vw] items-start text-sm">
+                        <div className="bg-chopbgblack rounded-xl gap-2 w-fit flex p-2 ">
                           <img
                             src={logo}
                             alt="Chop Logo"
                             className="w-6 h-6 lg:w-8 lg:h-8 rounded-t-xl"
                           />
-                          Chop
                         </div>
-                        <div className="max-w-[90%] overflow-auto lg:pl-12">
-                          <div>
+                        <div className="max-w-[90%] overflow-auto pt-2 ">
+                          <div className="">
                             <Typewriter
                               onInit={(typewriter) => {
                                 typewritingref.current = typewriter;
@@ -195,18 +214,18 @@ const ChatBox: React.FC<IMessageArray> = ({
                   );
                 } else if (message.type === "text" && message.name === "user") {
                   return (
-                    <div key={index} className="flex justify-end mb-2">
-                      <div className="bg-chopbgblack p-4 rounded-xl text-white/90 max-w-[90%] flex flex-col w-[70vw] lg:w-[50vw] gap-2 items-start text-sm">
-                        <div className="bg-chopbgblack rounded-xl gap-4 w-full flex p-2">
-                          <img
+                    <div key={index} className="flex justify-center mb-3">
+                      <div className="bg-chopbgblack p-4 rounded-xl text-white/90 max-w-[90%]  flex w-[90vw] lg:w-[60vw] items-start text-sm">
+                        <div className="bg-chopbgblack rounded-xl gap-4 w-fit flex p-2">
+                          {/* <img
                             src={chopgpt}
                             alt="User Logo"
                             className="w-6 h-6 lg:w-8 lg:h-8 rounded-t-xl"
-                          />
-                          User
+                          /> */}
+                          <User size={20} className="text-white" />
                         </div>
                         <p
-                          className="max-w-[80%] whitespace-pre-wrap lg:pl-12"
+                          className="max-w-[80%] whitespace-pre-wrap  pt-2 "
                           dangerouslySetInnerHTML={{
                             __html: processMessage(message.message),
                           }}
@@ -219,9 +238,9 @@ const ChatBox: React.FC<IMessageArray> = ({
               }
             )}
             {shouldDisplayOptimisticResponse() && (
-              <div className="flex justify-start mb-2">
-                <div className="bg-chopbgblack p-4 rounded-xl text-white/90 max-w-[90%] flex flex-col w-5/6 items-start text-sm">
-                  <div className="bg-chopbgblack rounded-xl gap-4 w-full flex p-2">
+              <div className="flex justify-center mb-2">
+                <div className="bg-chopbgblack p-4 rounded-xl text-white/90 max-w-[90%] flex  w-[60vw] items-start text-sm">
+                  <div className="bg-chopbgblack rounded-xl gap-4 w-fit flex p-2">
                     <img
                       src={logo}
                       alt="Chop Logo"
@@ -229,11 +248,11 @@ const ChatBox: React.FC<IMessageArray> = ({
                     />
                     Chop
                   </div>
-                  <div className="max-w-[80%] overflow-auto pl-2">
-                    <div className="w-[40vw] lg:w-[30vw] p-2">
-                      <Skeleton className=" h-2 lg:h-4 bg-chop3gray rounded-xl animate-pulse" />
-                      <Skeleton className="  h-2 lg:h-4 bg-chop3gray rounded-xl animate-pulse mt-1" />
-                      <Skeleton className=" h-2 lg:h-4 bg-chop3gray rounded-xl animate-pulse mt-1" />
+                  <div className="max-w-[80%] overflow-auto pl-2  overflow-x-hidden">
+                    <div className="w-[40vw] lg:w-[60vw] p-2 overflow-x-hidden">
+                      <Skeleton className=" h-2 lg:h-4 w-3/4 bg-chop3gray rounded-xl animate-pulse" />
+                      <Skeleton className="  h-2 lg:h-4  w-2/4 bg-chop3gray rounded-xl animate-pulse mt-1" />
+                      <Skeleton className=" h-2 lg:h-4  w-4/6 bg-chop3gray rounded-xl animate-pulse mt-1" />
                     </div>
                   </div>
                 </div>
@@ -241,15 +260,29 @@ const ChatBox: React.FC<IMessageArray> = ({
             )}
           </>
         ) : (
-          <div className="flex justify-center items-center h-full">
-            <p className="text-white/70">Start conversation with Chop</p>
+          <div className="flex flex-col justify-start items-center h-full">
+            <p className="text-white/70 mb-4 text-xl font-bold">Examples</p>
+
+            <div className="grid grid-cols-2 gap-4 max-h-[30vh]  text-xs w-full lg:w-fit h-fit lg:h-[16vh] ">
+              {dummyQuestions.map((item, idx) => (
+                <div
+                  key={idx}
+                  className="py-4 lg:py-2 px-4 bg-chop3gray/80 hover:bg-chop3gray w-[40vw] lg:w-[20vw] rounded-xl flex items-center text-white/80 text-xs lg:text-sm max-h-[14vh] h-full "
+                >
+                  <p className=" ">
+                    <span className="font-bold ">Question :</span>{" "}
+                    {item.question}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
         )}
       </div>
 
       {showScrollButton && (
         <div
-          className="absolute -bottom-10 left-1/2 transform -translate-x-1/2 cursor-pointer"
+          className="absolute -bottom-20 left-1/2 transform -translate-x-1/2 cursor-pointer"
           onClick={handleScrollToBottom}
         >
           <svg

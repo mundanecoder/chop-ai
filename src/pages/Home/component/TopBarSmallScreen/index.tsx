@@ -33,7 +33,7 @@ const SmallScreenTopBar: React.FC<ISmallScreenTopBarProps> = ({
           alt="logo"
           className="w-8 h-8 lg:w-12 lg:h-12 rounded-t-xl"
         />
-        <span className="text-white/95 text-lg font-semibold">Chop AI</span>
+        <span className="text-white/85 text-lg font-semibold">ChopTax</span>
       </div>
     </div>
   );

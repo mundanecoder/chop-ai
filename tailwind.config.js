@@ -17,6 +17,9 @@ module.exports = {
       },
     },
     extend: {
+      backgroundImage: {
+        bggrad: "url(/bg/bg.jpg)",
+      },
       colors: {
         chopLighttext: "rgb(54, 54, 55)",
         chop3gray: "rgb(29, 29, 31)",
