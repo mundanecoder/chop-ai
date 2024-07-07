@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
 import { Ban, Send } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { useToast } from "../../../@/components/ui/use-toast";
+import { chopGPT } from "../../api/chopgpt";
 import ChatBox from "./component/ChatBox";
 import ChatTopBar from "./component/ChatTopBar";
 import SideBar from "./component/SIdeBar";
 import SmallScreenTopBar from "./component/TopBarSmallScreen";
-import { chopGPT } from "../../api/chopgpt";
-import { useToast } from "../../../@/components/ui/use-toast";
-import { dummyQuestions } from "./component/ChatBox";
 
 type chatUse = "chopai" | "user";
 
@@ -120,22 +119,21 @@ export function App() {
     }
   };
 
-  // Function to clear chat messages
-  const clearChat = () => {
-    if (currentChatId) {
-      setChats((prevChats) => {
-        const updatedChats = prevChats.map((chat) =>
-          chat.id === currentChatId ? { ...chat, chat: [] } : chat
-        );
-        setIstyping(false);
-        return updatedChats;
-      });
-    }
-  };
+  // Function to clear chat
+  // const clearChat = () => {
+  //   if (currentChatId) {
+  //     setChats((prevChats) => {
+  //       const updatedChats = prevChats.map((chat) =>
+  //         chat.id === currentChatId ? { ...chat, chat: [] } : chat
+  //       );
+  //       setIstyping(false);
+  //       return updatedChats;
+  //     });
+  //   }
+  // };
 
-  // Function to handle stop generating button click
   const handleStopGenerating = () => {
-    setIstyping(false); // Set typing state to false when stop generating is clicked
+    setIstyping(false);
   };
 
   return (
@@ -147,7 +145,7 @@ export function App() {
           className="w-[100%] h-[90%] lg:h-[98%] lg:block lg:w-[75%] mt-10 lg:mt-0 bg-chopbg/2 rounded-xl"
           onClick={() => setOpen(true)}
         >
-          <ChatTopBar clearChat={clearChat} />
+          <ChatTopBar />
           <div className="h-[90%] bg-chopbg/2 w-full rounded-xl p-[3%] flex flex-col justify-between">
             <ChatBox
               chat={chats}

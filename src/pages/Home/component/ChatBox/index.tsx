@@ -1,10 +1,9 @@
-import React, { useRef, useEffect, useState } from "react";
-import Typewriter, { TypewriterClass } from "typewriter-effect";
-import logo from "/Logo.svg";
-import chopgpt from "/chatimg1.svg";
-import { chatMessage, IMessageObject } from "../../App";
-import { Skeleton } from "../../../../../@/components/ui/skeleton";
 import { User } from "lucide-react";
+import React, { useEffect, useRef, useState } from "react";
+import Typewriter, { TypewriterClass } from "typewriter-effect";
+import { Skeleton } from "../../../../../@/components/ui/skeleton";
+import { chatMessage, IMessageObject } from "../../App";
+import logo from "/Logo.svg";
 
 interface IMessageArray {
   chat: chatMessage[];

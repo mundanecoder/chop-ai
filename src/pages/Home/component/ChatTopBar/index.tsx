@@ -1,10 +1,4 @@
-import { MessageCircleX } from "lucide-react";
-
-interface IProps {
-  clearChat: () => void;
-}
-
-const ChatTopBar = ({ clearChat }: IProps) => {
+const ChatTopBar = () => {
   return (
     <div className="h-[8%] flex gap-4 items-center w-full rounded-t-xl border-b-2 justify-between px-[2%] border-chop3gray">
       <div className="flex items-center text-md">

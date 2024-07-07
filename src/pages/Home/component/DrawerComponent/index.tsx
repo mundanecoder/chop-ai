@@ -1,8 +1,7 @@
-import React from "react";
 import { CircleX, Search, User } from "lucide-react";
-import logo from "/Logo.svg";
-import chopgpt from "/chatimg1.svg";
+import React from "react";
 import { chatMessage } from "../../App";
+import logo from "/Logo.svg";
 
 interface IDrawerProps {
   open: boolean;
