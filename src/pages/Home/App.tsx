@@ -189,16 +189,16 @@ export function App() {
               isTyping={istyping} // Pass istyping state to ChatBox component
               handleIsTying={setIstyping} // Pass setIstyping function to ChatBox component
             />
-            <div className="h-[10%] flex justify-center items-start relative">
+            <div className="h-[10%] flex justify-center items-start relative ">
               <form
                 onSubmit={handleSubmitForm}
                 className={`flex h-[80%] border-2 hover:border-4 ${
                   istyping ? "border-4" : ""
-                } active:border-2 border-chop3gray rounded-xl w-[90%] lg:w-[80%] items-center justify-center bg-chopbgblack/70 hover:bg-chopbgblack`}
+                } active:border-2 border-chop3gray rounded-xl w-[90%] py-6 lg:w-[80%] items-center justify-center bg-chopbgblack/70 hover:bg-chopbgblack`}
               >
                 <div className="flex w-[80%] h-[70%] items-center justify-center relative">
                   <textarea
-                    className="w-full bg-transparent text-[10px] lg:text-sm h-full resize-none outline-none text-white/95 text-sm p-2 rounded-xl whitespace-pre-wrap mb-4 sm:mb-0 shadow-lg"
+                    className="w-full min-h-8 bg-transparent text-[10px] lg:text-sm h-full resize-none outline-none text-white/95 text-sm p-2 rounded-xl whitespace-pre-wrap mb-4 sm:mb-0 shadow-lg"
                     placeholder="Let the magic happen, Ask a question"
                     value={input}
                     onChange={handleInput}
