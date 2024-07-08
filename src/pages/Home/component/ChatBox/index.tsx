@@ -1,7 +1,9 @@
 import { User } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
+import { useRecoilState } from "recoil";
 import Typewriter, { TypewriterClass } from "typewriter-effect";
 import { Skeleton } from "../../../../../@/components/ui/skeleton";
+import { templateQuestion } from "../../../../recoil/atom";
 import { chatMessage, IMessageObject } from "../../App";
 import logo from "/Logo.svg";
 
@@ -41,9 +43,10 @@ const ChatBox: React.FC<IMessageArray> = ({
   const [shouldAutoScroll] = useState(true);
   const [showScrollButton, setShowScrollButton] = useState(false);
   const [, setLastUserMessage] = useState<string | null>(null);
-  const [, setIsTypewriterTyping] = useState(false); // State to track if Typewriter is typing
+  const [, setIsTypewriterTyping] = useState(false);
+  const [question, setQuestion] = useRecoilState(templateQuestion);
 
-  const typewritingref = useRef<TypewriterClass | null>(null); // Ref to hold Typewriter instance
+  const typewritingref = useRef<TypewriterClass | null>(null);
 
   const scrollChatToBottom = () => {
     if (messageContainerRef.current && shouldAutoScroll) {
@@ -69,10 +72,13 @@ const ChatBox: React.FC<IMessageArray> = ({
 
   const processMessage = (message: string) => {
     return message
-      .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-      .replace(/### (.*?)/g, "<h3>$1</h3>")
-      .replace(/\n/g, "<br>")
-      .replace(/  /g, "&nbsp;&nbsp;");
+      .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>") // Bold
+      .replace(/### (.*?)/g, "<h3>$1</h3>") // Headings
+      .replace(/\n/g, "<br>") // Newlines
+      .replace(/  /g, "&nbsp;&nbsp;") // Double spaces for indents
+      .replace(/`([^`]*)`/g, "<code>$1</code>") // Inline code
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>') // Links
+      .replace(/\\\[([^\\\[]*?)\\\]/g, "<math>$1</math>"); // Math expressions
   };
 
   const currentChatSession = chat.find(
@@ -245,7 +251,6 @@ const ChatBox: React.FC<IMessageArray> = ({
                       alt="Chop Logo"
                       className="w-6 h-6 lg:w-8 lg:h-8 rounded-t-xl"
                     />
-                    Chop
                   </div>
                   <div className="max-w-[80%] overflow-auto pl-2  overflow-x-hidden">
                     <div className="w-[40vw] lg:w-[60vw] p-2 overflow-x-hidden">
@@ -268,7 +273,7 @@ const ChatBox: React.FC<IMessageArray> = ({
                   key={idx}
                   className="py-4 lg:py-2 px-4 bg-chop3gray/80 hover:bg-chop3gray w-[40vw] lg:w-[20vw] rounded-xl flex items-center text-white/80 text-xs lg:text-sm max-h-[14vh] h-full "
                 >
-                  <p className=" ">
+                  <p className=" " onClick={() => setQuestion(item.question)}>
                     <span className="font-bold ">Question :</span>{" "}
                     {item.question}
                   </p>

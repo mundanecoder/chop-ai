@@ -7,7 +7,7 @@ type LayoutProps = {
 
 const Layout = ({ children }: LayoutProps) => {
   return (
-    <div className="w-[(100vh-10px)] bg-bggrad sm:p-4 bg-cover bg-no-repeat bg-center gap-2  dark:bg-black flex bg-chopbgblack flex-col backdrop-blur-2xl items-center overflow-x-hidden h-[100vh] justify-center relative  ">
+    <div className="w-[(100vw-10px)] h-screen bg-bggrad sm:p-4 bg-cover bg-no-repeat bg-center gap-2  dark:bg-black flex bg-chopbgblack flex-col backdrop-blur-2xl items-center overflow-x-hidden justify-center relative  overflow-hidden  ">
       {children}
       <Toaster />
     </div>

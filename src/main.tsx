@@ -3,7 +3,10 @@ import "./index.css";
 import { RouterProvider } from "react-router-dom";
 
 import router from "../src/routes/router";
+import { RecoilRoot } from "recoil";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <RouterProvider router={router} />
+  <RecoilRoot>
+    <RouterProvider router={router} />
+  </RecoilRoot>
 );

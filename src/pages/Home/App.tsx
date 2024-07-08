@@ -6,6 +6,8 @@ import ChatBox from "./component/ChatBox";
 import ChatTopBar from "./component/ChatTopBar";
 import SideBar from "./component/SIdeBar";
 import SmallScreenTopBar from "./component/TopBarSmallScreen";
+import { templateQuestion } from "../../recoil/atom";
+import { useRecoilState, useRecoilValue } from "recoil";
 
 type chatUse = "chopai" | "user";
 
@@ -24,12 +26,14 @@ export interface chatMessage {
 
 export function App() {
   const [open, setOpen] = useState(true);
-  const [istyping, setIstyping] = useState(false); // Initial state for typing status
+  const [istyping, setIstyping] = useState(false);
   const [chats, setChats] = useState<chatMessage[]>([]);
   const [input, setInput] = useState("");
   const [currentChatId, setCurrentChatId] = useState<string | null>(null);
   const [answer, setAnswer] = useState("");
-  const { toast } = useToast(); // Initialize useToast hook
+  const { toast } = useToast();
+  const selectedQuestion = useRecoilValue(templateQuestion);
+  const [, setQuestion] = useRecoilState(templateQuestion);
 
   useEffect(() => {
     if (answer) {
@@ -44,6 +48,12 @@ export function App() {
       setAnswer("");
     }
   }, [answer]);
+
+  useEffect(() => {
+    if (selectedQuestion) {
+      CallTemplateQuestion();
+    }
+  }, [selectedQuestion]);
 
   async function getChopGPT(query: string) {
     const response = await chopGPT(query);
@@ -69,6 +79,23 @@ export function App() {
       getChopGPT(input);
       setIstyping(true); // Set typing state to true when user sends a message
       setInput("");
+    }
+  }
+
+  function CallTemplateQuestion() {
+    if (selectedQuestion) {
+      const newMessage: IMessageObject = {
+        id: Date.now().toString(),
+        name: "user",
+        type: "text",
+        message: selectedQuestion,
+        time: new Date().toLocaleDateString("de-DE"),
+      };
+      saveMessage(newMessage);
+      getChopGPT(selectedQuestion);
+      setIstyping(true); // Set typing state to true when user sends a message
+      setInput("");
+      setQuestion("");
     }
   }
 
