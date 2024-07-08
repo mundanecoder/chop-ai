@@ -120,7 +120,7 @@ const SideBar = ({ chat }: IMessageArray) => {
                 <span className="text-white/70 text-[10px] text-wrap">
                   Hi, you are in beta version of chop ai, many features are in
                   development mode and will be available soon, we appreciate
-                  your feedback help@chop.com
+                  your feedback Info@chopchopfinance.com.
                 </span>
                 <span className="text-white/70 text-xs text-wrap my-1">
                   For details visit :
