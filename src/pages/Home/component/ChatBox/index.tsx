@@ -44,7 +44,7 @@ const ChatBox: React.FC<IMessageArray> = ({
   const [showScrollButton, setShowScrollButton] = useState(false);
   const [, setLastUserMessage] = useState<string | null>(null);
   const [, setIsTypewriterTyping] = useState(false);
-  const [question, setQuestion] = useRecoilState(templateQuestion);
+  const [, setQuestion] = useRecoilState(templateQuestion);
 
   const typewritingref = useRef<TypewriterClass | null>(null);
 

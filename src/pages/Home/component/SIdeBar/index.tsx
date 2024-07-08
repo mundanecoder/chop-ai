@@ -1,13 +1,10 @@
-import { User } from "lucide-react";
 import { chatMessage } from "../../App";
 import logo from "/Logo.svg";
 
-import { Search } from "lucide-react";
 import { dummyQuestions } from "../ChatBox";
 import { templateQuestion } from "../../../../recoil/atom";
 import { useRecoilState } from "recoil";
 import { companyNames } from "../DrawerComponent";
-import { MessageCircleIcon } from "lucide-react";
 
 interface IMessageArray {
   chat: chatMessage[];
@@ -31,9 +28,7 @@ const SideBar = ({ chat }: IMessageArray) => {
   };
 
   const handleChatChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedChat = filteredChat.find(
-      (session) => session.id === event.target.value
-    );
+    filteredChat.find((session) => session.id === event.target.value);
   };
 
   return (

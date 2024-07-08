@@ -1,4 +1,4 @@
-import { CircleX, Search, User } from "lucide-react";
+import { CircleX } from "lucide-react";
 import React from "react";
 import { chatMessage } from "../../App";
 import logo from "/Logo.svg";
@@ -42,9 +42,7 @@ const DrawerComponent: React.FC<IDrawerProps> = ({
   };
 
   const handleChatChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedChat = filteredChat.find(
-      (session) => session.id === event.target.value
-    );
+    filteredChat.find((session) => session.id === event.target.value);
     // Do something with the selected chat (e.g., displaying it in the chat window)
   };
 
