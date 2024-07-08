@@ -167,8 +167,8 @@ export function App() {
         <SideBar chat={chats} />
         <SmallScreenTopBar open={open} setOpen={setOpen} chat={chats} />
         {showToast && istyping && (
-          <div className="h-fit p-4 max-h-[4vh] bg-red-800/30 shadow-lg absolute  flex flex-col justify-center text-white/70 text-sm top-[0%] right-10 rounded-xl">
-            <p>chop is not engaged, you can ask a question</p>
+          <div className="h-fit p-4 max-h-[4vh] bg-red-800/20 shadow-lg absolute  flex flex-col justify-center text-white/70 text-sm top-[0%] right-10 rounded-xl">
+            <p>chop is engaged</p>
 
             <p>press stop generating and try again</p>
           </div>
