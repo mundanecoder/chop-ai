@@ -74,6 +74,8 @@ const ChatBox: React.FC<IMessageArray> = ({
     return message
       .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>") // Bold
       .replace(/### (.*?)/g, "<h3>$1</h3>") // Headings
+      .replace(/## (.*?)/g, "<h2>$1</h2>") // Headings level 2
+      .replace(/# (.*?)/g, "<h1>$1</h1>") // Headings level 1
       .replace(/\n/g, "<br>") // Newlines
       .replace(/  /g, "&nbsp;&nbsp;") // Double spaces for indents
       .replace(/`([^`]*)`/g, "<code>$1</code>") // Inline code

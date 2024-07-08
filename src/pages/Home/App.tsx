@@ -1,6 +1,5 @@
 import { Ban, Send } from "lucide-react";
 import React, { useEffect, useState } from "react";
-import { useToast } from "../../../@/components/ui/use-toast";
 import { chopGPT } from "../../api/chopgpt";
 import ChatBox from "./component/ChatBox";
 import ChatTopBar from "./component/ChatTopBar";
@@ -31,9 +30,10 @@ export function App() {
   const [input, setInput] = useState("");
   const [currentChatId, setCurrentChatId] = useState<string | null>(null);
   const [answer, setAnswer] = useState("");
-  const { toast } = useToast();
   const selectedQuestion = useRecoilValue(templateQuestion);
   const [, setQuestion] = useRecoilState(templateQuestion);
+
+  const [showToast, setToast] = useState(false);
 
   useEffect(() => {
     if (answer) {
@@ -146,21 +146,19 @@ export function App() {
     }
   };
 
-  // Function to clear chat
-  // const clearChat = () => {
-  //   if (currentChatId) {
-  //     setChats((prevChats) => {
-  //       const updatedChats = prevChats.map((chat) =>
-  //         chat.id === currentChatId ? { ...chat, chat: [] } : chat
-  //       );
-  //       setIstyping(false);
-  //       return updatedChats;
-  //     });
-  //   }
-  // };
+  function hanldeShowtoast() {
+    console.log("hit");
+
+    if (istyping) {
+      setToast(true);
+      setTimeout(() => setToast(false), 5000);
+    }
+  }
 
   const handleStopGenerating = () => {
     setIstyping(false);
+
+    // setTimeout(() => , 300);
   };
 
   return (
@@ -168,8 +166,19 @@ export function App() {
       <div className="w-[96vw] h-[100vh] flex flex-col lg:flex lg:flex-row lg:gap-[3%] justify-center relative md:h-[100vh] lg:h-[97vh] p-[10px] lg:p-[20px] bg-transparent">
         <SideBar chat={chats} />
         <SmallScreenTopBar open={open} setOpen={setOpen} chat={chats} />
+        {showToast && istyping && (
+          <div className="h-fit p-4 max-h-[4vh] bg-red-800/30 shadow-lg absolute  flex flex-col justify-center text-white/70 text-sm top-[0%] right-10 rounded-xl">
+            <p>chop is not engaged, you can ask a question</p>
+
+            <p>press stop generating and try again</p>
+          </div>
+        )}
+        {/* <div className="h-4vh p-2 max-h-[4vh] bg-red-800/30 shadow-lg absolute  text-white/70 text-sm top-[0%] right-10 rounded-xl">
+          <p>"chop is not engaged, you can ask a question</p>
+        </div> */}
+
         <div
-          className="w-[100%] h-[90%] lg:h-[98%] lg:block lg:w-[75%] mt-10 lg:mt-0 bg-chopbg/2 rounded-xl"
+          className="w-[100%] h-[90%] lg:h-[98%] lg:block lg:w-[75%] mt-10 lg:mt-0 bg-chopbg/2 rounded-xl "
           onClick={() => setOpen(true)}
         >
           <ChatTopBar />
@@ -180,71 +189,7 @@ export function App() {
               isTyping={istyping} // Pass istyping state to ChatBox component
               handleIsTying={setIstyping} // Pass setIstyping function to ChatBox component
             />
-            {/* <div
-              className="h-[5%] self-center px-2 bg-chop3gray rounded-xl flex justify-center gap-2 items-center hover:bg-chop3gray"
-              onClick={handleStopGenerating} // Handle stop generating button click
-            >
-              <Ban size={20} className="text-white/50 text-sm p-1" />
-              <span className="shadow-md text-[10px] text-sm p-1 text-white/30 hover:text-white/50">
-                Stop generating
-              </span>
-            </div> */}
             <div className="h-[10%] flex justify-center items-start relative">
-              {/* <form
-                onSubmit={handleSubmitForm}
-                className={`flex h-[80%] hover:border-2 ${
-                  istyping ? "border-4" : ""
-                } active:border-2 border-chop3gray rounded-xl w-[90%] lg:w-[80%] items-center justify-center bg-chopbgblack/70 hover:bg-chopbgblack`}
-              >
-                <textarea
-                  className="w-[80%] bg-transparent text-[10px] lg:text-sm h-[70%] resize-none outline-none text-white/95 text-sm p-2 rounded-xl whitespace-pre-wrap mb-4 sm:mb-0"
-                  placeholder="Let the magic happen, Ask a question"
-                  value={input}
-                  onChange={handleInput}
-                  onKeyDown={handleKeyDown}
-                  autoFocus
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    scrollbarWidth: "none",
-                    overflowY: "hidden",
-                    overflowX: "hidden",
-                    lineHeight: "1.5",
-                    paddingTop: "calc((70% - 1.5em) / 2)",
-                  }}
-                />
-                <button
-                  type={istyping ? "button" : "submit"}
-                  className="bg-chop3gray/50 hover:bg-chop3gray lg:p-2 rounded-xl"
-                  onClick={() =>
-                    istyping
-                      ? toast({
-                          className: "bg-red-800/40 rounded-xlw-full  h-fit",
-                          variant: "destructive",
-                          title: "chop is engaged",
-                          description:
-                            "use stop generating button and try again",
-                        })
-                      : null
-                  }
-                >
-                  <Send
-                    size={16}
-                    className="text-white/80 hover:text-white text-sm"
-                  />
-                </button>
-                <button
-                  type={istyping ? "button" : "submit"}
-                  className="bg-chop3gray/50 hover:bg-chop3gray lg:p-2 rounded-xl ml-2"
-                  onClick={handleStopGenerating} // Handle stop generating button click
-                >
-                  <Ban
-                    size={20}
-                    className="text-white/50 text-sm hover:text-white/95"
-                  />
-                </button>
-              </form> */}
               <form
                 onSubmit={handleSubmitForm}
                 className={`flex h-[80%] border-2 hover:border-4 ${
@@ -273,17 +218,9 @@ export function App() {
                 <button
                   type={istyping ? "button" : "submit"}
                   className="bg-chop3gray/50 hover:bg-chop3gray lg:p-2 rounded-xl"
-                  onClick={() =>
-                    istyping
-                      ? toast({
-                          className: "bg-red-800/40 rounded-xl w-full h-fit",
-                          variant: "destructive",
-                          title: "chop is engaged",
-                          description:
-                            "use stop generating button and try again",
-                        })
-                      : null
-                  }
+                  onClick={() => {
+                    hanldeShowtoast();
+                  }}
                 >
                   <Send
                     size={16}
@@ -291,9 +228,10 @@ export function App() {
                   />
                 </button>
                 <button
-                  type={istyping ? "button" : "submit"}
                   className="bg-chop3gray/50 hover:bg-chop3gray lg:p-2 rounded-xl ml-2"
-                  onClick={handleStopGenerating} // Handle stop generating button click
+                  onClick={() => {
+                    handleStopGenerating();
+                  }}
                 >
                   <Ban
                     size={20}
@@ -301,9 +239,6 @@ export function App() {
                   />
                 </button>
               </form>
-              {/* <button className="absolute right-[3%] bottom-2 lg:bottom-8 lg:right-2 bg-chop3gray/70 hover:bg-chop3gray/90 text-white/50 hover:text-white p-2 rounded-full">
-                <Plus size={18} />
-              </button> */}
             </div>
           </div>
         </div>
