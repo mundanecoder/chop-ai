@@ -215,29 +215,33 @@ export function App() {
                     }}
                   />
                 </div>
-                <button
-                  type={istyping ? "button" : "submit"}
-                  className="bg-chop3gray/50 hover:bg-chop3gray lg:p-2 rounded-xl"
-                  onClick={() => {
-                    hanldeShowtoast();
-                  }}
-                >
-                  <Send
-                    size={16}
-                    className="text-white/80 hover:text-white text-sm"
-                  />
-                </button>
-                <button
-                  className="bg-chop3gray/50 hover:bg-chop3gray lg:p-2 rounded-xl ml-2"
-                  onClick={() => {
-                    handleStopGenerating();
-                  }}
-                >
-                  <Ban
-                    size={20}
-                    className="text-white/50 text-sm hover:text-white/95"
-                  />
-                </button>
+                {!istyping ? (
+                  <button
+                    type={"submit"}
+                    className="bg-chop3gray/50 hover:bg-chop3gray lg:p-2 rounded-xl"
+                    onClick={() => {
+                      hanldeShowtoast();
+                    }}
+                  >
+                    <Send
+                      size={16}
+                      className="text-white/80 hover:text-white text-sm"
+                    />
+                  </button>
+                ) : (
+                  <button
+                    type="submit"
+                    className="bg-chop3gray/50 hover:bg-chop3gray lg:p-2 rounded-xl ml-2"
+                    onClick={() => {
+                      handleStopGenerating();
+                    }}
+                  >
+                    <Ban
+                      size={20}
+                      className="text-white/50 text-sm hover:text-white/95"
+                    />
+                  </button>
+                )}
               </form>
             </div>
           </div>
