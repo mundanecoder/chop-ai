@@ -60,6 +60,8 @@ export function App() {
     setAnswer(response ? response.result : "typing");
   }
 
+  console.log(istyping);
+
   function handleSubmitForm(
     e:
       | React.FormEvent<HTMLFormElement>

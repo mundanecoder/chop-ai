@@ -47,13 +47,13 @@ const DrawerComponent: React.FC<IDrawerProps> = ({
   };
 
   return (
-    <div className="absolute block lg:hidden top-0 left-0 h-full w-full text-white z-50">
+    <div className="absolute block lg:hidden -top-4 -left-3 h-full w-full text-white z-50">
       {open ? null : (
         <div className="block text-white bg-chopbgblack h-[93.5vh] mt-3 w-[80vw] z-50 relative">
           <div className="w-[97%] border-b-2 border-chop3gray p-1">
             <CircleX size={24} onClick={handleDrawer} />
           </div>
-          <div className="flex flex-1 h-[90vh] bg-chopbgblack">
+          <div className="flex flex-1 h-[94.2vh] bg-chopbgblack">
             <div className="block h-[90%] w-[95%] rounded-xl lg:flex flex-col">
               <div className="h-[8vh] flex justify-center gap-4 items-center w-full rounded-t-xl">
                 <img
@@ -65,7 +65,7 @@ const DrawerComponent: React.FC<IDrawerProps> = ({
                   Chop AI
                 </span>
               </div>
-              <div className="h-[98%] bg-chopbg w-full rounded-xl p-[5%]">
+              <div className="h-[98%]  w-full rounded-xl p-[5%]">
                 <div className="h-[4%] mb-4 flex text-xs justify-center items-center w-full rounded-xl ">
                   <button className="px-4 py-2 text-xs rounded-l-xl shadow-md text-white/70 bg-chop3gray/50">
                     Tax Memo

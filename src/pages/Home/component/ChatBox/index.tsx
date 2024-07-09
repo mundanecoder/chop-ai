@@ -17,19 +17,21 @@ interface IMessageArray {
 export const dummyQuestions = [
   {
     id: "1",
-    question: "How to calculate HRA?",
+    question:
+      "Do I need to file an income tax return if my income is below the taxable limit?",
   },
   {
     id: "2",
-    question: "What is the standard deduction for salaried employees?",
+    question: "Is health insurance a tax deductible expense?",
   },
   {
     id: "3",
-    question: "What are the tax benefits on home loans?",
+    question:
+      "My daughter was born yesterday. Am I eligible for any tax deductions? ",
   },
   {
     id: "4",
-    question: "How to calculate taxable salary?",
+    question: "My 12 year son made INR 1 lacs, how is liable to pay tax?",
   },
 ];
 
@@ -244,9 +246,9 @@ const ChatBox: React.FC<IMessageArray> = ({
                 return null;
               }
             )}
-            {shouldDisplayOptimisticResponse() && (
-              <div className="flex justify-center mb-2">
-                <div className="bg-chopbgblack p-4 rounded-xl text-white/90 max-w-[90%] flex  w-[60vw] items-start text-sm">
+            {!shouldDisplayOptimisticResponse() && (
+              <div className="flex justify-center mb-2 ">
+                <div className="bg-chopbgblack p-4 rounded-xl text-white/90 max-w-[90%] flex  w-[80vw] items-start text-sm">
                   <div className="bg-chopbgblack rounded-xl gap-4 w-fit flex p-2">
                     <img
                       src={logo}
