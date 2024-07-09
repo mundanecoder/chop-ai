@@ -246,7 +246,7 @@ const ChatBox: React.FC<IMessageArray> = ({
                 return null;
               }
             )}
-            {!shouldDisplayOptimisticResponse() && (
+            {shouldDisplayOptimisticResponse() && (
               <div className="flex justify-center mb-2 ">
                 <div className="bg-chopbgblack p-4 rounded-xl text-white/90 max-w-[90%] flex  w-[80vw] items-start text-sm">
                   <div className="bg-chopbgblack rounded-xl gap-4 w-fit flex p-2">
